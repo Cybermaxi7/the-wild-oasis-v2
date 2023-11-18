@@ -13,7 +13,9 @@ const StyledModal = styled.div`
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
     padding: 3.2rem 4rem;
+    max-height: 90%;
     transition: all 0.5s;
+    overflow-y: auto;
 `;
 
 const Overlay = styled.div`

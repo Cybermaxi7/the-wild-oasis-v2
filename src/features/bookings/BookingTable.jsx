@@ -1,16 +1,20 @@
+import Button from "../../ui/Button";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
+import Modal from "../../ui/Modal";
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
+import CreateCabinForm from "../cabins/CreateCabinForm";
 import BookingRow from "./BookingRow";
+import CreateBookingForm from "./CreateBookingForm";
 import { useBookings } from "./useBookings";
 
 function BookingTable() {
     const { bookings, isLoading, count } = useBookings();
-
     if (isLoading) return <Spinner />;
-    // if (!bookings.length) return <Empty resourceName="bookings" />;
+    if (!bookings?.length) return <Empty resourceName="bookings" />;
 
     return (
         <Menus>
@@ -25,15 +29,24 @@ function BookingTable() {
                 </Table.Header>
 
                 <Table.Body
-          data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
-          )}
-        />
-        <Table.Footer>
-            <Pagination count={count}/>
-        </Table.Footer>
+                    data={bookings}
+                    render={(booking) => (
+                        <BookingRow key={booking.id} booking={booking} />
+                    )}
+                />
+                <Table.Footer>
+                    <Pagination count={count} />
+                </Table.Footer>
             </Table>
+            <Modal>
+                <Modal.Open opens="create-bookings">
+                    <Button>Create Bookings</Button>
+                </Modal.Open>
+                <Modal.Window name="create-bookings">
+                    <CreateBookingForm />
+                </Modal.Window>
+            </Modal>
+            
         </Menus>
     );
 }
